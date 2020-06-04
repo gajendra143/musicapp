@@ -1,0 +1,11 @@
+{% extends 'musicApp/layout.html' %}
+{% block title %}Edit Genre{% endblock %}
+{% block content %}
+<div class="thumbnail" style="background-color: black">
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        <h4 style="color: red; font-family: 'Times New Roman';">{{ form.as_p }}</h4>
+        <input type="submit" value="Update">
+    </form>
+</div>
+{% endblock %}

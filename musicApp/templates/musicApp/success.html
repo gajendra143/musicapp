@@ -1,0 +1,14 @@
+{% extends 'musicApp/layout.html' %}
+{% block title %}Success{% endblock %}
+{% block content %}
+<div class="thumbnail" style="background-color: black">
+    {% if request.user.is_authenticated %}
+        <h3 style="color: white; font-family: 'Times New Roman';">User <b>{{user.username}}</b> is logged in !</h3>
+        <form method="post" action="/logout/">{% csrf_token %}
+            <button class="btn btn-danger">Log Out</button>
+        </form>
+    {% else %}
+        <h3 style="color: white; font-family: 'Times New Roman';">You are not logged in !</h3>
+    {% endif %}
+</div>
+{% endblock %}

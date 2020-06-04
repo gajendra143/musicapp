@@ -1,0 +1,12 @@
+{% extends "musicApp/layout.html" %}
+{% block title %}Add Album{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="col-xs-6 thumbnail" style="background-color: black">
+    <h3 style="color: white">Add Album</h3>
+    <form action="" method="post" enctype="multipart/form-data" novalidate> {% csrf_token %}
+        <h4 style="color: white">{{ form|crispy }}</h4>
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+</div>
+{% endblock %}

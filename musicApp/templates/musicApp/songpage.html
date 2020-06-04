@@ -1,0 +1,48 @@
+{% extends 'musicApp/layout.html' %}
+{% block title %}Song{% endblock %}
+{% block content %}
+<div class="col-xs-2 well bs-sidebar" id="sidebar" style="background-color:#000000">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{% url 'createsong' %}"><span class="glyphicon glyphicon-plus"></span> Add Song</a></li>
+    </ul>
+</div>
+<div class="col-xs-10">
+    {% for i in album.song_set.all %}
+    <div class="col-xs-4">
+        <div class="panel panel-default" style="background-color: black">
+            <div class="panel-body">
+                <h4 style="color: red">{{ i.song_title }}.{{ i.file_type }}</h4>
+                <iframe width="100%" height="100%"
+                        src="https://www.youtube.com/embed/{{ i.song_url }}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+                <form method="post" action="{% url 'update_song' i.id %}" style="display: inline">{% csrf_token %}
+                    <input type="hidden" name="artist_id" value="{{ i.id }}" >
+                        {% if request.user.is_authenticated %}
+                            <button type="submit" class="btn btn-success">Update</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-success" disabled= "disabled" title="please log in !">
+                                Update
+                            </button>
+                        {% endif %}
+                    </form>
+                    <form method="post" action="{% url 'delete_song' i.id %}" style="display: inline">{% csrf_token %}
+                        <input type="hidden" name="artist_id" value="{{ i.id }}">
+                        {% if request.user.is_authenticated %}
+                            <button type="submit" class="btn btn-default-sm">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        {% else %}
+                            <button type="submit" class="btn btn-default-sm" disabled="disabled" title="please log in !">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        {% endif %}
+                    </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
